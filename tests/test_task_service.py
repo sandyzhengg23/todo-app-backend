@@ -119,7 +119,7 @@ def test_missing_due_date_raises_error():
     auth, service = make_services()
     user = auth.sign_up("sandy", "123")
 
-    #Act / Assert
+    #Act/Assert
     with pytest.raises(InvalidTaskInputError):
         service.create_task(user, "Task", "", Priority.HIGH, None, "School")
 
@@ -138,7 +138,7 @@ def test_create_task_with_none_user_raises_error():
     #Arrange
     _, service = make_services()
 
-    # Act / Assert
+    # Act/Assert
     with pytest.raises(InvalidTaskInputError):
         service.create_task(None, "Task", "", Priority.HIGH, date(2026, 4, 24), "School")
 
@@ -167,7 +167,7 @@ def test_update_task_changes_all_optional_fields():
     assert updated.due_date == date(2026, 5, 1)
     assert updated.category == "Personal"
 
-#Boundary / edge, Business logic
+#Boundary/edge, Business logic
 def test_update_task_with_no_optional_fields_keeps_task_unchanged():
     #Arrange
     auth, service = make_services()
@@ -186,45 +186,45 @@ def test_update_task_with_no_optional_fields_keeps_task_unchanged():
 
 #Invalid input, Boundary / edge, Exception handling
 def test_update_task_empty_title_raises_error():
-    # Arrange
+    #Arrange
     auth, service = make_services()
     user = auth.sign_up("sandy", "123")
     task = service.create_task(user, "Task", "", Priority.HIGH, date(2026, 4, 24), "School")
 
-    # Act / Assert
+    #Act/Assert
     with pytest.raises(InvalidTaskInputError):
         service.update_task(user, task.id, title="")
 
 
 #Invalid input, Boundary / edge, Exception handling
 def test_update_task_empty_category_raises_error():
-    # Arrange
+    #Arrange
     auth, service = make_services()
     user = auth.sign_up("sandy", "123")
     task = service.create_task(user, "Task", "", Priority.HIGH, date(2026, 4, 24), "School")
 
-    # Act / Assert
+    #Act/Assert
     with pytest.raises(InvalidTaskInputError):
         service.update_task(user, task.id, category="")
 
 
 #Invalid input, Boundary / edge, Exception handling
 def test_list_tasks_with_none_user_raises_error():
-    # Arrange
+    #Arrange
     _, service = make_services()
 
-    # Act / Assert
+    #Act/Assert
     with pytest.raises(InvalidTaskInputError):
         service.list_tasks(None)
 
 
-# Invalid input, Boundary / edge, Exception handling
+#Invalid input, Boundary / edge, Exception handling
 def test_update_task_invalid_priority_raises_error():
-    # Arrange
+    #Arrange
     auth, service = make_services()
     user = auth.sign_up("sandy", "123")
     task = service.create_task(user, "Task", "", Priority.HIGH, date(2026, 4, 24), "School")
 
-    # Act / Assert
+    #Act/Assert
     with pytest.raises(InvalidTaskInputError):
         service.update_task(user, task.id, priority="urgent")
